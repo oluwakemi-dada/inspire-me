@@ -17,7 +17,7 @@ const IdeaCard = ({ idea, button = true }: IdeaCardProps) => {
   return (
     <div className='border border-gray-300 p-4 rounded shadow bg-white flex flex-col justify-between'>
       <div>
-        <h3 className='text-lg font-bold text-gray-900'>{idea.title}</h3>
+        <h3 className='text-lg font-bold'>{idea.title}</h3>
         <p className='text-gray-700 mt-2'>{idea.summary}</p>
       </div>
       <Link
