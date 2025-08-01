@@ -7,6 +7,7 @@ import {
 import { TanStackRouterDevtools } from '@tanstack/react-router-devtools';
 import { QueryClient } from '@tanstack/react-query';
 import Header from '@/components/Header';
+import { Toaster } from 'sonner';
 
 type RouterContext = {
   queryClient: QueryClient;
@@ -40,6 +41,7 @@ function RootLayout() {
         </div>
       </main>
       <TanStackRouterDevtools />
+      <Toaster position='top-right' />
     </div>
   );
 }

@@ -1,4 +1,4 @@
-import type { Idea, NewIdea } from '@/types';
+import type { Idea, NewIdea, UpdateIdea } from '@/types';
 import api from '@/lib/axios';
 
 export const fetchIdeas = async (): Promise<Idea[]> => {
@@ -22,4 +22,13 @@ export const createIdea = async (newIdea: NewIdea): Promise<Idea> => {
 
 export const deleteIdea = async (ideaId: string): Promise<void> => {
   await api.delete(`/ideas/${ideaId}`);
+};
+
+export const updateIdea = async (
+  ideaId: string,
+  updatedData: UpdateIdea
+): Promise<Idea> => {
+  const res = await api.put(`/ideas/${ideaId}`, updatedData);
+
+  return res.data;
 };

@@ -14,3 +14,8 @@ export type NewIdea = {
   description: string;
   tags: string[];
 };
+
+export type UpdateIdea = NewIdea;
+export type UpdateMutation = UpdateIdea & {
+  ideaId: string;
+};

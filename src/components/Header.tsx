@@ -8,7 +8,7 @@ const Header = () => {
         <div className='flex items-center space-x-2 text-gray-800'>
           <Link to='/' className='flex items-center space-x-2 text-gray-800'>
             <Lightbulb className='w-6 h-6 text-yellow-500' />
-            <h1 className='text-2xl font-bold'>IdeaDrop</h1>
+            <h1 className='text-2xl font-bold'>InspireMe</h1>
           </Link>
         </div>
 

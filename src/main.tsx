@@ -2,7 +2,6 @@ import { StrictMode } from 'react';
 import ReactDOM from 'react-dom/client';
 import { RouterProvider, createRouter } from '@tanstack/react-router';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { Toaster } from 'sonner';
 
 // Import the generated route tree
 import { routeTree } from './routeTree.gen';
@@ -42,7 +41,6 @@ if (rootElement && !rootElement.innerHTML) {
   root.render(
     <QueryClientProvider client={queryClient}>
       <StrictMode>
-        <Toaster position='top-right' />
         <RouterProvider router={router} />
       </StrictMode>
     </QueryClientProvider>
