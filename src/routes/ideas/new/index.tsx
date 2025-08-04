@@ -128,7 +128,7 @@ function NewIdeaPage() {
           <button
             type='submit'
             disabled={isPending}
-            className='block w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-2 rounded-md transition disabled:opacity-50 disabled:cursor-not-allowed'
+            className='block w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-2 cursor-pointer rounded-md transition disabled:opacity-50 disabled:cursor-not-allowed'
           >
             {isPending ? 'Creating...' : 'Create Idea'}
           </button>
