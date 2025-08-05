@@ -1,52 +1,95 @@
-import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
-import { useState } from "react";
+import { createFileRoute, Link, useNavigate } from '@tanstack/react-router';
+import { useState } from 'react';
+import { useMutation } from '@tanstack/react-query';
+import { registerUser } from '@/api/auth';
+import { useAuth } from '@/context/authContext';
+import { toast } from 'sonner';
 
-export const Route = createFileRoute("/(auth)/register/")({
+export const Route = createFileRoute('/(auth)/register/')({
   component: RegisterPage,
 });
 
 function RegisterPage() {
   const navigate = useNavigate();
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+  const { setAccessToken, setUser } = useAuth();
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+
+  const { mutateAsync, isPending } = useMutation({
+    mutationFn: ({
+      name,
+      email,
+      password,
+    }: {
+      name: string;
+      email: string;
+      password: string;
+    }) => registerUser({ name, email, password }),
+    onSuccess: (data) => {
+      setAccessToken(data.accessToken);
+      setUser(data.user);
+      navigate({ to: '/ideas' });
+    },
+    onError: (error: any) => {
+      setError(error.message);
+    },
+  });
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    try {
+      await mutateAsync({ name, email, password });
+    } catch (error: any) {
+      console.log(error.message);
+    }
+  };
 
   return (
-    <div className="max-w-md mx-auto">
-      <h1 className="text-3xl font-bold mb-6">Register</h1>
-      <form action="" className="space-y-4">
+    <div className='max-w-md mx-auto'>
+      <h1 className='text-3xl font-bold mb-6'>Register</h1>
+      {error && (
+        <div className='bg-red-100 text-red-700 px-4 py-2 rounded mb-4'>
+          {error}
+        </div>
+      )}
+      <form onSubmit={handleSubmit} className='space-y-4'>
         <input
-          type="text"
-          placeholder="Name"
+          type='text'
+          placeholder='Name'
           value={name}
           onChange={(e) => setName(e.target.value)}
-          className="w-full border border-gray rounded-md p-2"
+          className='w-full border border-gray rounded-md p-2'
         />
         <input
-          type="email"
-          className="w-full border border-gray rounded-md p-2"
-          placeholder="Email"
+          type='email'
+          className='w-full border border-gray rounded-md p-2'
+          placeholder='Email'
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          autoComplete="off"
+          autoComplete='off'
         />
         <input
-          type="password"
-          className="w-full border border-gray rounded-md p-2"
-          placeholder="Password"
+          type='password'
+          className='w-full border border-gray rounded-md p-2'
+          placeholder='Password'
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          autoComplete="off"
+          autoComplete='off'
         />
-        <button className="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-4 py-2 rounded-md w-full disabled:opacity-50">
-          {"Register"}
+        <button
+          disabled={isPending}
+          className='bg-blue-600 hover:bg-blue-700 text-white font-semibold cursor-pointer px-4 py-2 rounded-md w-full disabled:opacity-50'
+        >
+          {isPending ? 'Registering' : 'Register'}
         </button>
       </form>
 
-      <p className="text-sm text-center mt-4">
-        Already have an account?{" "}
-        <Link to="/login" className="text-blue-600 hover:underline font-medium">
+      <p className='text-sm text-center mt-4'>
+        Already have an account?{' '}
+        <Link to='/login' className='text-blue-600 hover:underline font-medium'>
           Login
         </Link>
       </p>
