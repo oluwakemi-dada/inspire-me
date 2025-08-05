@@ -44,3 +44,14 @@ export const loginUser = async (credentials: {
     throw new Error(message);
   }
 };
+
+export const logoutUser = async () => {
+  try {
+    await api.post('/auth/logout')
+  } catch (error: any) {
+    const errorTyped: ErrorResponse = error;
+    const message: string =
+      errorTyped.response?.data?.message || 'Failed to logout';
+    throw new Error(message);
+  }
+}
