@@ -19,7 +19,7 @@ function LoginPage() {
     mutationFn: loginUser,
     onSuccess: (data) => {
       setAccessToken(data.accessToken);
-      setUser(data.setUser);
+      setUser(data.user);
       navigate({ to: '/ideas' });
     },
     onError: (error: any) => {
