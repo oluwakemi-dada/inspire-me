@@ -34,7 +34,6 @@ function NewIdeaPage() {
     }
 
     try {
-      console.log('Submitted');
       await mutateAsync({
         title,
         summary,
