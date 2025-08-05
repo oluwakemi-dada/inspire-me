@@ -3,7 +3,6 @@ import { useState } from 'react';
 import { useMutation } from '@tanstack/react-query';
 import { registerUser } from '@/api/auth';
 import { useAuth } from '@/context/authContext';
-import { toast } from 'sonner';
 
 export const Route = createFileRoute('/(auth)/register/')({
   component: RegisterPage,
@@ -18,15 +17,7 @@ function RegisterPage() {
   const [error, setError] = useState('');
 
   const { mutateAsync, isPending } = useMutation({
-    mutationFn: ({
-      name,
-      email,
-      password,
-    }: {
-      name: string;
-      email: string;
-      password: string;
-    }) => registerUser({ name, email, password }),
+    mutationFn: registerUser,
     onSuccess: (data) => {
       setAccessToken(data.accessToken);
       setUser(data.user);
@@ -83,7 +74,7 @@ function RegisterPage() {
           disabled={isPending}
           className='bg-blue-600 hover:bg-blue-700 text-white font-semibold cursor-pointer px-4 py-2 rounded-md w-full disabled:opacity-50'
         >
-          {isPending ? 'Registering' : 'Register'}
+          {isPending ? 'Registering...' : 'Register'}
         </button>
       </form>
 
